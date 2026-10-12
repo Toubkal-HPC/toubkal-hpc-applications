@@ -1,0 +1,19 @@
+*Heading
+** Simple tetrahedron test
+*Node
+1, 0., 0., 0.
+2, 1., 0., 0.
+3, 0., 1., 0.
+4, 0., 0., 1.
+*Element, type=C3D4, elset=EALL
+1, 1, 2, 3, 4
+*Material, name=STEEL
+*Elastic
+210000, 0.3
+*Solid Section, material=STEEL, elset=EALL
+*Step, name=Step-1, nlgeom=NO
+*Static
+0.1, 1., 1e-05, 1.
+*Boundary
+1, 1, 1, 0.
+*End Step
