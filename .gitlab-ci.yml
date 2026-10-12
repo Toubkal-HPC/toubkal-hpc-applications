@@ -1,0 +1,21 @@
+image: python:3.11-slim
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - pip install -U mkdocs mkdocs-material pyyaml
+
+pages:
+  stage: deploy
+  script:
+    - python3 build_docs.py --output public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

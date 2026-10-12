@@ -1,0 +1,24 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows you to run this manually if needed
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to GitLab
+        run: |
+          # Add GitLab as a remote
+          git remote add gitlab ${{ secrets.GITLAB_REPO_URL }}
+          
+          # Force push the main branch and all tags
+          git push gitlab main --force
+          git push gitlab --tags --force
